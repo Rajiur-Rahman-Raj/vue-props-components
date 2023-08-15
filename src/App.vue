@@ -1,71 +1,100 @@
 <script setup>
-    import PricingHeader from "./components/pricing/PricingHeader.vue";
-    import PricingList from "./components/pricing/PricingList.vue";
-
-    const title = "Designed for business teams like yours"
-    const subTitle = "Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth."
-    const buttonText = "Get Started"
-    const packages = [
+import {ref} from 'vue'
+import ApplicantDetails from './components/ApplicantDetails.vue';
+const activeIndex = ref(0)
+const people = [
+  {
+    name:'Margot Foster',
+    position:'Backend Developer',
+    email:'margotfoster@example.com',
+    salary:'$120,000',
+    about:'Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu.',
+    attachments:[
       {
-        title:"Starter",
-        subTitle:"Best option for personal use & for your next project.",
-        currencySymbol:"$",
-        price:"99",
-        date:"15 Days",
-        lists:[
-          {title:"Individual configuration", isChecked:true},
-          {title:"No setup, or hidden fees", isChecked:true},
-          {title:"Team size: 1 developer", isChecked:true},
-          {title:"Premium support: 6 months", isChecked:false},
-          {title:"Free updates: 6 months", isChecked:false},
-        ],
+        name:'resume_back_end_developer.pdf',
+        size:'256kb',
+        type:'PDF',
+        url:'#'
       },
       {
-        title:"Company",
-        subTitle:"Best option for personal use & for your next project.",
-        currencySymbol:"$",
-        price:"99",
-        date:"Monthly",
-        lists:[
-          {title:"Individual configuration", isChecked:true},
-          {title:"No setup, or hidden fees", isChecked:false},
-          {title:"Team size: 1 developer", isChecked:true},
-          {title:"Premium support: 6 months", isChecked:false},
-          {title:"Free updates: 6 months", isChecked:true},
-        ],
-      },
-      {
-        title:"Enterprise",
-        subTitle:"Best option for personal use & for your next project.",
-        currencySymbol:"$",
-        price:"99",
-        date:"Yearly",
-        lists:[
-          {title:"Individual configuration", isChecked:false},
-          {title:"No setup, or hidden fees", isChecked:true},
-          {title:"Team size: 1 developer", isChecked:false},
-          {title:"Premium support: 6 months", isChecked:true},
-          {title:"Free updates: 6 months", isChecked:true},
-        ],
-      },
+        name:'coverletter_back_end_developer.pdf',
+        size:'128kb',
+        type:'PDF',
+        url:'#'
+      }
     ]
+  },
+  {
+    name:'John Doe',
+    position:'Frontend Developer',
+    email:'john@doe.com',
+    salary:'$100,000',
+    about:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
+    attachments:[
+      {
+        name:'resume_front_end_developer.pdf',
+        size:'1MB',
+        type:'PDF',
+        url:'#'
+      },
+      {
+        name:'coverletter_front_end_developer.pdf',
+        size:'512kb',
+        type:'PDF',
+        url:'#'
+      }
+    ]
+  },
+  {
+    name:'Jane Doe',
+    position:'Designer',
+    email:'jane@doe.com',
+    salary:'$110,000',
+    about:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Here is some more text.',
+    attachments:[
+      {
+        name:'resume_designer.pdf',
+        size:'5MB',
+        type:'PDF',
+        url:'#'
+      },
+      {
+        name:'coverletter_designer.pdf',
+        size:'2MB',
+        type:'PDF',
+        url:'#'
+      }
+    ]
+  }
+]
 </script>
 
 <template>
   <section class="mx-auto ">
-    <section class="bg-white dark:bg-gray-900">
-      <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-        
-        <PricingHeader :title="title" :subTitle="subTitle" />
-
-        <div class="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
-          <PricingList :buttonText="buttonText" :packages="packages"/>
+    <h1 class="my-10 text-center">Components</h1>
+    <div class="flex justify-between space-x-5">
+      <div class="w-1/3">
+        <div @click="activeIndex=index" class="my-2 p-5 hover:bg-gray-200 cursor-pointer" v-for="(person, index) in people" :key="index">
+          {{person.name}}
         </div>
+
       </div>
-    </section>
+      <div class="w-2/3">
+        <ApplicantDetails :person="people[activeIndex]" />
+      </div>
+    </div>
   </section>
 </template>
 
 <style scoped>
-  
+input[type=checkbox]:checked+label span:first-of-type {
+  background-color: #10B981;
+  border-color: #10B981;
+  color: #fff;
+}
+
+input[type=checkbox]:checked+label span:nth-of-type(2) {
+  text-decoration: line-through;
+  color: #9CA3AF;
+}
 </style>
